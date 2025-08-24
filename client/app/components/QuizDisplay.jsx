@@ -1,13 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { QuizData } from '../page'
-
-
 
 export default function QuizDisplay({ quizData, onNewQuiz }) {
   const [showAnswer, setShowAnswer] = useState(false)
-  const [selectedOption, setSelectedOption] = useState<string | null>(null)
+  const [selectedOption, setSelectedOption] = useState(null)
 
   const options = [
     { key: 'a', label: 'A', value: quizData.alternativas.a },
@@ -16,7 +13,7 @@ export default function QuizDisplay({ quizData, onNewQuiz }) {
     { key: 'd', label: 'D', value: quizData.alternativas.d },
   ]
 
-  const handleOptionClick = () => {
+  const handleOptionClick = (optionKey) => {
     setSelectedOption(optionKey)
   }
 
@@ -24,7 +21,7 @@ export default function QuizDisplay({ quizData, onNewQuiz }) {
     setShowAnswer(true)
   }
 
-  const getOptionStyle = () => {
+  const getOptionStyle = (optionKey) => {
     if (!showAnswer && !selectedOption) {
       return 'bg-white hover:bg-blue-50 border-gray-200 hover:border-blue-300'
     }
@@ -63,10 +60,10 @@ export default function QuizDisplay({ quizData, onNewQuiz }) {
               className={`p-4 rounded-xl border-2 text-left transition-all transform hover:scale-102 ${getOptionStyle(option.key)}`}
             >
               <div className="flex items-start">
-                <span className="flex-shrink-0 w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center font-bold text-sm mr-4">
+                <span className="flex-shrink-0 w-8 h-8 bg-gray-200 text-black rounded-full flex items-center justify-center font-bold text-sm mr-4">
                   {option.label}
                 </span>
-                <span className="text-lg">{option.value}</span>
+                <span className="text-lg text-black">{option.value}</span>
               </div>
             </button>
           ))}
